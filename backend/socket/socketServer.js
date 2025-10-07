@@ -32,6 +32,7 @@ const initSocketServer=(httpServer)=>{
     io.on("connection",(socket)=>{
         socket.on("ai-message",async(messagePayload)=>{
             console.log(messagePayload);
+            /*
             const message=await Message.create({
                 chat:messagePayload.chat,
                 user:socket.user._id,
@@ -40,25 +41,71 @@ const initSocketServer=(httpServer)=>{
         })
 
         const vectors=await aiService.generateVector(messagePayload.content)
-        await createMemory({
-            vectors,
-            messageId:message._id,
-            metadata:{
-                chat:messagePayload.chat,
-                user:socket.user._id
-            }
-        })
+        */
+       const [message,vectors]=await Promise.all([
+        Message.create({
+            chat:messagePayload.chat,
+            user:socket.user._id,
+            content:messagePayload.content,
+            role:"user"
+        }),
+        aiService.generateResponse(messagePayload.content)
+       ])
+       await createMemory({
+                vectors,
+                messageId:message._id,
+                metadata:{
+                    chat:messagePayload.chat,
+                    user:socket.user._id,
+                    text:messagePayload.content,
+                    role:"user"
+                }
+            })
+       /*
+        const memory=await queryMemory({
+                    queryVector:vectors,
+                    limit:3,
+                    metadata:{
+                        user:socket.user._id,
 
+                    }
+                })
         const chatHistory=(await Message.find({
             chat:messagePayload.chat,
         }).sort({createdAt:-1}).limit(20).lean()).reverse();
         console.log(chatHistory);
-            const response=await generateResponse(chatHistory.map(item=>{
+*/
+        const [memory,chatHistory]=await Promise.all([
+             queryMemory({
+                    queryVector:vectors,
+                    limit:3,
+                    metadata:{
+                        user:socket.user._id,
+
+                    }
+                }),
+                 Message.find({
+            chat:messagePayload.chat,
+        }).sort({createdAt:-1}).limit(20).lean().reverse()
+        ])
+        const stm=chatHistory.map(item=>{
             return{
             role:item.role,
             parts:[{text:item.content}]
             }
-        }));
+        });
+
+        const ltm=[
+            {
+                role:"user",
+                parts:[{text:`
+                    these are some previous messages from the chat.Use them to generate a respons
+                    ${memory.map(item=>item.metadata.text).join('/n')}
+                    `}]
+            }
+        ]
+            const response=await generateResponse();
+            /*
             const responseMessage=await Message.create({
                 chat:messagePayload.chat,
                 user:socket.user._id,
@@ -66,22 +113,30 @@ const initSocketServer=(httpServer)=>{
                 role:"model"
             })
             const responseVectors=await aiService.generateVector(response);
-            await createMemory({
+            */
+           
+            
+            
+            socket.emit('ai-response',{
+                content:response,
+                chat:messagePayload.chat
+            })
+            const [responseMessage,responseVectors]=await Promise.all([
+                Message.create({
+                chat:messagePayload.chat,
+                user:socket.user._id,
+                content:response,
+                role:"model"
+            }),
+            aiService.generateVector(response)
+           ])
+           await createMemory({
                 vectors:responseVectors,
                 messageId:responseMessage._id,
                 metadata:{
                     chat:messagePayload.chat,
                     user:socket.user._id,
                 }
-            })
-            const memory=await queryMemory({
-                    queryVector:vectors,
-                    limit:3,
-                    metadata:{}
-                })
-            socket.emit('ai-response',{
-                content:response,
-                chat:messagePayload.chat
             })
         })
     })
