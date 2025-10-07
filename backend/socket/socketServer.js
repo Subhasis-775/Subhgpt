@@ -4,7 +4,7 @@ import cookie from 'cookie';
 import User from "../models/User.js";
 import generateResponse from "../services/aiService.js";
 import Message from "../models/Message.js";
-import { createMemory } from "../services/vectorService.js";
+import { createMemory, queryMemory } from "../services/vectorService.js";
 import aiService from "../services/aiService.js";
 const initSocketServer=(httpServer)=>{
     const io=new Server(httpServer,{});
@@ -73,9 +73,12 @@ const initSocketServer=(httpServer)=>{
                     chat:messagePayload.chat,
                     user:socket.user._id,
                 }
-
-
             })
+            const memory=await queryMemory({
+                    queryVector:vectors,
+                    limit:3,
+                    metadata:{}
+                })
             socket.emit('ai-response',{
                 content:response,
                 chat:messagePayload.chat
