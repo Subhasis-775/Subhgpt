@@ -1,9 +1,14 @@
-import app from'./index.js';
+import app from './app.js';
 import http from 'http';
 import initSocketServer from './socket/socketServer.js';
-const httpServer=http.createServer(app);
+
+const httpServer = http.createServer(app);
 initSocketServer(httpServer);
-const port=process.env.PORT||5000;
-httpServer.listen(port,()=>{
-    console.log("server is running on port ",port);
-})
+
+const port = process.env.PORT || 5000;
+
+console.log("Render PORT:", process.env.PORT);
+
+httpServer.listen(port, () => {
+    console.log("Server running on port", port);
+});
