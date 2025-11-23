@@ -1,0 +1,63 @@
+/* CSS Variables for theming */
+:root {
+  /* Light mode colors */
+  --bg: 255, 255, 255;
+  --surface: 247, 247, 248;
+  --text: 13, 13, 13;
+  --accent: 16, 163, 127;
+  --muted: 142, 142, 160;
+  --danger: 239, 68, 68;
+
+  /* Computed colors */
+  --bg-color: rgb(var(--bg));
+  --surface-color: rgb(var(--surface));
+  --text-color: rgb(var(--text));
+  --accent-color: rgb(var(--accent));
+  --muted-color: rgb(var(--muted));
+  --danger-color: rgb(var(--danger));
+
+  /* Additional colors */
+  --border-color: rgba(var(--text), 0.1);
+  --hover-bg: rgba(var(--text), 0.05);
+  --input-bg: rgb(var(--bg));
+
+  /* Spacing */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+
+  /* Border radius */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --card-radius: var(--radius-lg);
+
+  /* Shadows */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+[data-theme="dark"] {
+  /* Dark mode colors */
+  --bg: 33, 33, 33;
+  --surface: 52, 53, 65;
+  --text: 236, 236, 241;
+  --accent: 16, 163, 127;
+  --muted: 142, 142, 160;
+  --danger: 239, 68, 68;
+
+  /* Additional colors for dark mode */
+  --border-color: rgba(var(--text), 0.15);
+  --hover-bg: rgba(var(--text), 0.08);
+  --input-bg: rgb(64, 65, 79);
+
+  /* Shadows for dark mode */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
