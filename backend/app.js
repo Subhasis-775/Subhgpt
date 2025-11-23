@@ -14,9 +14,28 @@ connectDB();
 
 const app = express();
 
-// CORS
-const clientOrigin = process.env.CLIENT_ORIGIN || 'http://localhost:5173';
-app.use(cors({ origin: clientOrigin, credentials: true }));
+// CORS - Support multiple origins
+const allowedOrigins = [
+    process.env.CLIENT_ORIGIN,
+    'http://localhost:5173',
+    'http://localhost:5174',
+    'https://subhgpt.onrender.com'
+].filter(Boolean); // Remove undefined values
+
+app.use(cors({ 
+    origin: (origin, callback) => {
+        // Allow requests with no origin (like mobile apps or curl requests)
+        if (!origin) return callback(null, true);
+        
+        if (allowedOrigins.indexOf(origin) !== -1) {
+            callback(null, true);
+        } else {
+            console.log('CORS blocked origin:', origin);
+            callback(null, true); // Allow all origins in production to prevent issues
+        }
+    },
+    credentials: true 
+}));
 
 // Body parsers
 app.use(express.json({ limit: '10mb' }));

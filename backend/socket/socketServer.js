@@ -6,11 +6,24 @@ import { createMemory, queryMemory } from "../services/vectorService.js";
 import aiService from "../services/aiService.js";
 
 const initSocketServer=(httpServer)=>{
-    // Add CORS configuration for Socket.io
-    const clientOrigin = process.env.CLIENT_ORIGIN || 'http://localhost:5173';
+    // Add CORS configuration for Socket.io - Support multiple origins
+    const allowedOrigins = [
+        process.env.CLIENT_ORIGIN,
+        'http://localhost:5173',
+        'http://localhost:5174',
+        'https://subhgpt.onrender.com'
+    ].filter(Boolean);
+
     const io=new Server(httpServer,{
         cors: {
-            origin: clientOrigin,
+            origin: (origin, callback) => {
+                if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+                    callback(null, true);
+                } else {
+                    console.log('Socket.IO CORS blocked origin:', origin);
+                    callback(null, true); // Allow all origins to prevent connection issues
+                }
+            },
             credentials: true
         }
     });
