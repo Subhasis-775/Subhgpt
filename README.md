@@ -79,16 +79,20 @@ This project demonstrates advanced full-stack development skills including WebSo
 ### Screenshots
 
 #### Light Mode
-![Light Mode Chat](https://via.placeholder.com/800x400/FFFFFF/10A37F?text=Light+Mode+Chat+Interface)
+![Light Mode Chat]<img width="1900" height="856" alt="image" src="https://github.com/user-attachments/assets/91ecc2e2-9000-4d61-b332-c9cd4a1212f3" />
+
+
 
 #### Dark Mode
-![Dark Mode Chat](https://via.placeholder.com/800x400/212121/10A37F?text=Dark+Mode+Chat+Interface)
+![Dark Mode Chat]<img width="1905" height="871" alt="image" src="https://github.com/user-attachments/assets/48fb4aed-d973-48f2-8462-68bc9c4e8b21" />
+
 
 #### Authentication
-![Login Page](https://via.placeholder.com/800x400/F7F7F8/10A37F?text=Login+Page)
+![Login Page]<img width="800" height="867" alt="image" src="https://github.com/user-attachments/assets/71acd34c-c935-4e1a-a447-e571d90d3b97" />
+
 
 ### Live Demo
-🔗 [Live Demo Link](#) *(Coming Soon)*
+🔗 [Live Demo Link]  https://subhgpt.vercel.app/
 
 ---
 
@@ -173,7 +177,7 @@ This project demonstrates advanced full-stack development skills including WebSo
 
 ### Clone Repository
 ```bash
-git clone https://github.com/yourusername/subhgpt.git
+git clone https://github.com/Subhasis-775/Subhgpt.git
 cd subhgpt
 ```
 
@@ -208,8 +212,8 @@ npm run dev
 ```
 
 The application will be available at:
-- Frontend: `http://localhost:5173`
-- Backend: `http://localhost:5000`
+- Frontend: `https://subhgpt.vercel.app/`
+- Backend: `https://subhgpt.onrender.com`
 
 ---
 
@@ -226,7 +230,7 @@ The application will be available at:
 | `PORT` | Backend server port | `5000` |
 
 ### Frontend
-No environment variables required. API URL is configured in code as `http://localhost:5000`.
+No environment variables required. API URL is configured in code as `https://subhgpt.onrender.com`.
 
 ---
 
@@ -512,10 +516,10 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 👨‍💻 Author
 
-**Your Name**
-- GitHub: [@yourusername](https://github.com/yourusername)
-- LinkedIn: [Your Name](https://linkedin.com/in/yourprofile)
-- Email: your.email@example.com
+**Subhasis Rout**
+- GitHub: https://github.com/Subhasis-775
+- LinkedIn: https://www.linkedin.com/in/subhasis-rout-3b22892a5?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app
+- Email: subhasisrout00@gmail.com
 
 ---
 
@@ -543,6 +547,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 **⭐ Star this repository if you found it helpful!**
 
-Made with ❤️ by [Your Name](https://github.com/yourusername)
+Made with ❤️ by [Subhasis](https://github.com/Subhasis-775)
 
 </div>
